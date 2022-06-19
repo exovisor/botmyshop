@@ -8,12 +8,12 @@ import { UsersService } from './users.service';
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async getUserById(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.findById(_id);
   }
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async getUser(@Args('payload') payload: FindUserInput) {
     return this.usersService.findOne(payload);
   }
@@ -23,12 +23,12 @@ export class UsersResolver {
     return this.usersService.create(payload);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   async updateUser(@Args('payload') payload: UpdateUserInput) {
     return this.usersService.update(payload);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   async deleteUser(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.delete(_id);
   }

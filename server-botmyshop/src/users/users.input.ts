@@ -23,6 +23,7 @@ export class FindUserInput {
 @InputType()
 export class UpdateUserInput {
   @Field(() => String)
+  @IsString()
   _id: Types.ObjectId;
 
   @Field(() => String, { nullable: true })

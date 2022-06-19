@@ -19,13 +19,13 @@ input FindUserInput {
 
 type Mutation {
   createUser(payload: CreateUserInput!): User!
-  deleteUser(_id: String!): User!
-  updateUser(payload: UpdateUserInput!): User!
+  deleteUser(_id: String!): User
+  updateUser(payload: UpdateUserInput!): User
 }
 
 type Query {
-  getUser(payload: FindUserInput!): User!
-  getUserById(_id: String!): User!
+  getUser(payload: FindUserInput!): User
+  getUserById(_id: String!): User
 }
 
 input UpdateUserInput {
