@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccessToken {
+  access_token: String!
+}
+
 input CreateUserInput {
   password: String!
   username: String!
@@ -20,10 +24,12 @@ input FindUserInput {
 type Mutation {
   createUser(payload: CreateUserInput!): User!
   deleteUser(_id: String!): User
+  login(password: String!, username: String!): AccessToken
   updateUser(payload: UpdateUserInput!): User
 }
 
 type Query {
+  getMe: User
   getUser(payload: FindUserInput!): User
   getUserById(_id: String!): User
 }

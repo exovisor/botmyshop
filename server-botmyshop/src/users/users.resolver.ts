@@ -1,10 +1,14 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Types } from 'mongoose';
+import { CurrentUser } from 'src/auth/currentuser.decorator';
+import { GqlAuthGuard } from '../auth/auth.guard';
 import { CreateUserInput, FindUserInput, UpdateUserInput } from './users.input';
 import { User } from './users.schema';
 import { UsersService } from './users.service';
 
 @Resolver(() => User)
+@UseGuards(GqlAuthGuard)
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
@@ -31,5 +35,10 @@ export class UsersResolver {
   @Mutation(() => User, { nullable: true })
   async deleteUser(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.delete(_id);
+  }
+
+  @Query(() => User, { nullable: true })
+  async getMe(@CurrentUser() user: User) {
+    return await this.usersService.findById(user._id);
   }
 }
